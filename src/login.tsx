@@ -11,7 +11,16 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = async () => {
+  const handleLoginWithGoogle = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+    });
+    if (error) {
+      alert("Error logging in with Google: " + error.message);
+    }
+  };
+
+  const handleLoginWithEmail = async () => {
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
@@ -38,8 +47,11 @@ function Login() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <Button colorScheme="teal" onClick={handleLogin}>
-          Login
+        <Button colorScheme="teal" onClick={handleLoginWithEmail}>
+          Login with Email
+        </Button>
+        <Button colorScheme="blue" onClick={handleLoginWithGoogle}>
+          Login with Google
         </Button>
       </VStack>
     </Box>
