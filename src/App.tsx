@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Landing from "./landing";
 import Login from "./login";
 import Dashboard from "./dashboard";
+import Signup from "./signup";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
           <Route path="/" element={<Landing />} />
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/signup" element={<Signup />} />
         </Routes>
       </Router>
     </ChakraProvider>
