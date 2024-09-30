@@ -1,4 +1,4 @@
-import { Box, Heading, Button, Input, VStack } from "@chakra-ui/react";
+import { Box, Heading, Button, Input, VStack, Divider } from "@chakra-ui/react";
 import { useState } from "react";
 import { supabase } from "./supabaseClient";
 
@@ -6,16 +6,20 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleLoginWithGoogle = async () => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
     });
+    setIsLoading(false);
     if (error) {
       alert("Error logging in with Google: " + error.message);
     }
   };
 
   const handleLoginWithEmail = async () => {
+    setIsLoading(true);
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
@@ -48,10 +52,11 @@ function Login() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <Button colorScheme="teal" type="submit">
+          <Button colorScheme="teal" type="submit" isLoading={isLoading}>
             Login with Email
           </Button>
-          <Button colorScheme="blue" onClick={handleLoginWithGoogle}>
+          <Divider />
+          <Button colorScheme="blue" onClick={handleLoginWithGoogle} mt={4}>
             Login with Google
           </Button>
         </VStack>
