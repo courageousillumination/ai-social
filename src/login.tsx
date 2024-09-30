@@ -2,9 +2,9 @@ import { Box, Heading, Button, Input, VStack } from "@chakra-ui/react";
 import { useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 
-const supabaseUrl = ""; // Add your Supabase URL here
-const supabaseAnonKey = ""; // Add your Supabase Anon Key here
-
+const supabaseUrl = "https://yqaneohnjibciexyzdxg.supabase.co";
+const supabaseAnonKey =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlxYW5lb2huamliY2lleHl6ZHhnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjc3MjExMTEsImV4cCI6MjA0MzI5NzExMX0.KVvypEQyr6ly-HgAXOYa1_q25S6gd-4uIMwtzAyG1pg";
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 function Login() {
