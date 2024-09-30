@@ -1,4 +1,11 @@
-import { ChakraProvider } from "@chakra-ui/react";
+import {
+  Badge,
+  Box,
+  Button,
+  ChakraProvider,
+  Heading,
+  Image,
+} from "@chakra-ui/react";
 
 function App() {
   return (
@@ -7,7 +14,13 @@ function App() {
         <Heading as="h1" size="xl" mb={4} textAlign="center">
           Welcome to Chakra UI
         </Heading>
-        <Box maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden" mx="auto">
+        <Box
+          maxW="sm"
+          borderWidth="1px"
+          borderRadius="lg"
+          overflow="hidden"
+          mx="auto"
+        >
           <Image src="https://bit.ly/2Z4KKcF" alt="Chakra UI" />
           <Box p="6">
             <Box d="flex" alignItems="baseline">
@@ -25,7 +38,13 @@ function App() {
                 Chakra UI &bull; React
               </Box>
             </Box>
-            <Box mt="1" fontWeight="semibold" as="h4" lineHeight="tight" isTruncated>
+            <Box
+              mt="1"
+              fontWeight="semibold"
+              as="h4"
+              lineHeight="tight"
+              isTruncated
+            >
               Build accessible React apps & websites with speed
             </Box>
             <Box>
