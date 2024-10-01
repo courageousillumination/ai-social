@@ -4,6 +4,7 @@ import Landing from "./landing";
 import Login from "./login";
 import Dashboard from "./dashboard";
 import Signup from "./signup";
+import Logout from "./logout";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/logout" element={<Logout />} />
         </Routes>
       </Router>
     </ChakraProvider>
