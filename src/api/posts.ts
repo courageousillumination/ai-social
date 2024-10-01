@@ -11,9 +11,9 @@ export interface Post {
   user_id: string;
 }
 
-const createPost = async (text: string) => {
+export const createPost = async (text: string) => {
   const { data, error } = await supabase
-    .from('posts')
+    .from("posts")
     .insert([{ content: text }]);
 
   if (error) {
@@ -23,11 +23,11 @@ const createPost = async (text: string) => {
   return data;
 };
 
-const getPosts = async (user?: string) => {
-  let query = supabase.from('posts').select('*');
+export const getPosts = async (user?: string) => {
+  let query = supabase.from("posts").select("*");
 
   if (user) {
-    query = query.eq('user_id', user);
+    query = query.eq("user_id", user);
   }
 
   const { data, error } = await query;

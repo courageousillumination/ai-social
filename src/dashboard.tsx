@@ -1,6 +1,6 @@
 import { Box, Heading, Text, VStack, Input, Button } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { getPosts, Post } from "./api/posts";
+import { getPosts, createPost, Post } from "./api/posts";
 
 function Dashboard() {
   const [newPost, setNewPost] = useState<string>("");
