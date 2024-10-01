@@ -53,8 +53,9 @@ function Dashboard() {
       </Box>
       <VStack spacing={4} mt={5}>
         {posts.map((post) => (
-          <Box key={post.id} p={5} shadow="md" borderWidth="1px">
-            <Text>{post.content}</Text>
+          <Box key={post.id} p={5} shadow="md" borderWidth="1px" borderRadius="md">
+            <Text fontSize="lg" mb={2}>{post.content}</Text>
+            <Text fontSize="sm" color="gray.500">Posted by: {post.user_id}</Text>
           </Box>
         ))}
       </VStack>
