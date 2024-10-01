@@ -23,6 +23,7 @@ function Dashboard() {
 
   return loading ? (
     <Text>Loading...</Text>
+  ) : (
     <Box textAlign="center" p={5}>
       <Heading>Dashboard</Heading>
       <Text>Welcome to your dashboard!</Text>
