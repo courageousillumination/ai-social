@@ -29,7 +29,7 @@ export const createPost = async (text: string) => {
 };
 
 export const getPosts = async (user?: string) => {
-  let query = supabase.from("posts").select("*, profiles(*)");
+  let query = supabase.from("posts").select("*, profiles(*)").order("created_at", { ascending: false }).limit(20);
 
   if (user) {
     query = query.eq("user_id", user);

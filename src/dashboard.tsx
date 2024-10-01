@@ -5,6 +5,7 @@ import { getPosts, createPost, Post } from "./api/posts";
 function Dashboard() {
   const [newPost, setNewPost] = useState<string>("");
   const [posts, setPosts] = useState<Post[]>([]);
+  const [submitting, setSubmitting] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -24,13 +25,15 @@ function Dashboard() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSubmitting(true);
     try {
-      await createPost(newPost);
+      const newPostData = await createPost(newPost);
       setNewPost("");
-      const data = await getPosts();
-      setPosts(data);
+      setPosts((prevPosts) => [newPostData[0], ...prevPosts]);
     } catch (error) {
       console.error("Error creating post:", error);
+    } finally {
+      setSubmitting(false);
     }
   };
   return loading ? (
@@ -46,7 +49,7 @@ function Dashboard() {
           onChange={(e) => setNewPost(e.target.value)}
           mb={3}
         />
-        <Button type="submit" colorScheme="teal">
+        <Button type="submit" colorScheme="teal" isLoading={submitting}>
           Submit
         </Button>
       </Box>
