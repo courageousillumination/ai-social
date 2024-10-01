@@ -1,8 +1,10 @@
-import { Box, Heading, Button, Input, VStack, Divider } from "@chakra-ui/react";
+import { Box, Heading, Button, Input, VStack, Divider, Link } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { supabase } from "./supabaseClient";
 
 function Login() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -26,7 +28,7 @@ function Login() {
     });
     if (error) {
       alert("Error logging in: " + error.message);
-    } else {
+      navigate("/dashboard");
       alert("Logged in successfully!");
     }
   };
@@ -55,10 +57,9 @@ function Login() {
           <Button colorScheme="teal" type="submit" isLoading={isLoading}>
             Login with Email
           </Button>
-          <Divider />
-          <Button colorScheme="blue" onClick={handleLoginWithGoogle} mt={4}>
-            Login with Google
-          </Button>
+          <Link color="teal.500" href="/signup">
+            Don't have an account? Sign up
+          </Link>
         </VStack>
       </form>
     </Box>
