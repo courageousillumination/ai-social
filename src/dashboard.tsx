@@ -65,7 +65,11 @@ function Dashboard() {
             <Text fontSize="lg" mb={2}>
               {post.content}
             </Text>
-            <Text fontSize="sm" color="gray.500">
+            <Text fontSize="sm" color="gray.500" mb={1}>
+              Posted by: {post.profiles.first_name} {post.profiles.last_name}
+            </Text>
+            <Text fontSize="xs" color="gray.400">
+              Posted at: {new Date(post.created_at).toLocaleString()}
               Posted by: {post.profiles.first_name} {post.profiles.last_name}
             </Text>
           </Box>

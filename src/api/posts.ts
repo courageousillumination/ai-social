@@ -10,6 +10,8 @@ export interface Post {
   /** UUID for the user who created the post. */
   user_id: string;
 
+  created_at: string;
+  
   profiles: {
     first_name: string;
     last_name: string;
