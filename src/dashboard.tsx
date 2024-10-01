@@ -64,10 +64,14 @@ function Dashboard() {
             <Text fontSize="lg" mb={2}>
               {post.content}
             </Text>
-            <Text fontSize="xs" color="gray.400">
-              Posted at: {new Date(post.created_at).toLocaleString()}
-              Posted by: {post.profiles.first_name} {post.profiles.last_name}
-            </Text>
+            <Box display="flex" justifyContent="space-between" fontSize="xs" color="gray.400">
+              <Text>
+                {post.profiles.first_name} {post.profiles.last_name}
+              </Text>
+              <Text>
+                {new Date(post.created_at).toLocaleString()}
+              </Text>
+            </Box>
           </Box>
         ))}
       </VStack>
