@@ -1,4 +1,4 @@
-import { Box, Heading, Button, Input, VStack, Divider, Link } from "@chakra-ui/react";
+import { Box, Heading, Button, Input, VStack, Link } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { supabase } from "./supabaseClient";
@@ -10,16 +10,6 @@ function Login() {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleLoginWithGoogle = async () => {
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: 'google',
-    });
-    setIsLoading(false);
-    if (error) {
-      alert("Error logging in with Google: " + error.message);
-    }
-  };
-
   const handleLoginWithEmail = async () => {
     setIsLoading(true);
     const { error } = await supabase.auth.signInWithPassword({
@@ -28,7 +18,7 @@ function Login() {
     });
     if (error) {
       alert("Error logging in: " + error.message);
-      navigate("/dashboard");
+      navigate("/");
       alert("Logged in successfully!");
     }
   };

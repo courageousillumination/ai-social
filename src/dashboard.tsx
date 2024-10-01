@@ -60,17 +60,21 @@ function Dashboard() {
             shadow="md"
             borderWidth="1px"
             borderRadius="md"
+            w={"md"}
           >
-            <Text fontSize="lg" mb={2}>
+            <Text fontSize="lg" mb={2} textAlign={"left"}>
               {post.content}
             </Text>
-            <Box display="flex" justifyContent="space-between" fontSize="xs" color="gray.400">
+            <Box
+              display="flex"
+              justifyContent="space-between"
+              fontSize="xs"
+              color="gray.400"
+            >
               <Text>
                 {post.profiles.first_name} {post.profiles.last_name}
               </Text>
-              <Text>
-                {new Date(post.created_at).toLocaleString()}
-              </Text>
+              <Text>{new Date(post.created_at).toLocaleString()}</Text>
             </Box>
           </Box>
         ))}

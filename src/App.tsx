@@ -1,6 +1,6 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Landing from "./landing";
+
 import Login from "./login";
 import Dashboard from "./dashboard";
 import Signup from "./signup";
@@ -13,7 +13,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/logout" element={<Logout />} />
         </Routes>

@@ -6,15 +6,6 @@ function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSignupWithGoogle = async () => {
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: 'google',
-    });
-    if (error) {
-      alert("Error signing up with Google: " + error.message);
-    }
-  };
-
   const handleSignupWithEmail = async () => {
     const { error } = await supabase.auth.signUp({
       email,
@@ -23,7 +14,9 @@ function Signup() {
     if (error) {
       alert("Error signing up: " + error.message);
     } else {
-      alert("Signup successful! Please check your email to confirm your account.");
+      alert(
+        "Signup successful! Please check your email to confirm your account."
+      );
     }
   };
 
@@ -44,9 +37,6 @@ function Signup() {
         />
         <Button colorScheme="teal" onClick={handleSignupWithEmail}>
           Signup with Email
-        </Button>
-        <Button colorScheme="blue" onClick={handleSignupWithGoogle}>
-          Signup with Google
         </Button>
       </VStack>
     </Box>
