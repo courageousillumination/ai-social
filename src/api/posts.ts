@@ -1,3 +1,5 @@
+import { supabase } from "../supabaseClient";
+
 export interface Post {
   /** UUID for the post */
   id: string;
@@ -9,6 +11,30 @@ export interface Post {
   user_id: string;
 }
 
-const createPost = async (text: string) => {};
+const createPost = async (text: string) => {
+  const { data, error } = await supabase
+    .from('posts')
+    .insert([{ content: text }]);
 
-const getPosts = async (user?: string) => {};
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+};
+
+const getPosts = async (user?: string) => {
+  let query = supabase.from('posts').select('*');
+
+  if (user) {
+    query = query.eq('user_id', user);
+  }
+
+  const { data, error } = await query;
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+};
