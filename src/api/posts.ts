@@ -24,7 +24,10 @@ export const createPost = async (text: string) => {
 };
 
 export const getPosts = async (user?: string) => {
-  let query = supabase.from("posts").select("*");
+  let query = supabase
+    .from("posts")
+    .select("*, users(username)")
+    .eq("users.id", "user_id");
 
   if (user) {
     query = query.eq("user_id", user);
