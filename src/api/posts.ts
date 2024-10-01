@@ -9,6 +9,11 @@ export interface Post {
 
   /** UUID for the user who created the post. */
   user_id: string;
+
+  profiles: {
+    first_name: string;
+    last_name: string;
+  };
 }
 
 export const createPost = async (text: string) => {
@@ -24,10 +29,7 @@ export const createPost = async (text: string) => {
 };
 
 export const getPosts = async (user?: string) => {
-  let query = supabase
-    .from("posts")
-    .select("*, users(username)")
-    .eq("users.id", "user_id");
+  let query = supabase.from("posts").select("*, profiles(*)");
 
   if (user) {
     query = query.eq("user_id", user);
