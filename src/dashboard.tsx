@@ -63,7 +63,7 @@ function Dashboard() {
               {post.content}
             </Text>
             <Text fontSize="sm" color="gray.500">
-              Posted by: {post.user_id}
+              Posted by: {post.profiles.first_name} {post.profiles.last_name}
             </Text>
           </Box>
         ))}
