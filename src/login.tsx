@@ -18,8 +18,8 @@ function Login() {
     });
     if (error) {
       alert("Error logging in: " + error.message);
+    } else {
       navigate("/");
-      alert("Logged in successfully!");
     }
   };
 

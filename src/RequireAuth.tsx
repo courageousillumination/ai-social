@@ -13,6 +13,7 @@ function RequireAuth({ children }: { children: JSX.Element }) {
         navigate("/login");
       } else {
         setIsAuthenticated(true);
+      }
     };
     checkAuth();
   }, [navigate]);
