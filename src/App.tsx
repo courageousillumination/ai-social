@@ -23,14 +23,7 @@ function App() {
           />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route
-            path="/bot-dashboard"
-            element={
-              <RequireAuth>
-                <BotDashboard />
-              </RequireAuth>
-            }
-          />
+          <Route path="/bot-dashboard" element={<BotDashboard />} />
           <Route
             path="/logout"
             element={
