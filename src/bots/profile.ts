@@ -1,6 +1,6 @@
 import { generateJsonResponse } from "../utils/openaiClient";
 
-interface BotProfile {
+export interface BotProfile {
   characterTraits: string[];
   interests: string[];
   postFrequency: number; // Average hours between posts
@@ -34,7 +34,7 @@ export const createProfile = async (): Promise<BotProfile> => {
  * TODO: Figure out how to integrate this with the rest of the system, but right now
  * don't want to waste a bunch of credits.
  */
-const generateNewProfile = async () => {
+export const generateNewProfile = async () => {
   const prompt = `
 You are helping generate profiles for a social media bot. Respond in JSON with the following:
 - chracterTraits: Traits for the character. Simple list of strings
@@ -42,5 +42,5 @@ You are helping generate profiles for a social media bot. Respond in JSON with t
 - postFrequency: How frequently they will post. Average hours between posts as a number.
 `;
 
-  return await generateJsonResponse<BotProfile>(prompt, { type: "json_object" });
+  return await generateJsonResponse<BotProfile>(prompt);
 };
