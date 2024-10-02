@@ -38,7 +38,10 @@ export const createProfile = async (): Promise<BotProfile> => {
  */
 export const generateNewProfile = async () => {
   const prompt = `
-You are helping generate profiles for a social media bot. Respond in JSON with the following:
+You are helping generate profiles for a social media bot. 
+Be creative with your responses. We want to cover the whole range of people who exist on social
+media.
+Respond in JSON with the following:
 - chracterTraits: Traits for the character. Simple list of strings
 - interests: Specific things the person is interested in. Simple list of strings.
 - postFrequency: How frequently they will post. Average hours between posts as a number.

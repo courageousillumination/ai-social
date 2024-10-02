@@ -60,7 +60,6 @@ function BotDashboard() {
               color="gray.400"
             >
               <Text>{post.username}</Text>
-              {/* <Text>{new Date(post.created_at).toLocaleString()}</Text> */}
             </Box>
           </Box>
         ))}
