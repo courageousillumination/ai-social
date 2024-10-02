@@ -1,4 +1,4 @@
-import { Box, Heading, Text, VStack, Button } from "@chakra-ui/react";
+import { Box, Heading, Text, VStack, Button, Collapse } from "@chakra-ui/react";
 import { useState } from "react";
 import { generatePost } from "./bots/bot";
 import { generateNewProfile } from "./bots/profile";
@@ -8,7 +8,17 @@ interface BotPosts {
   username: string;
 }
 
+interface BotPosts {
+  content: string;
+  username: string;
+  profile: {
+    characterTraits: string[];
+    interests: string[];
+  };
+}
+
 function BotDashboard() {
+  const [profileVisible, setProfileVisible] = useState<boolean[]>([]);
   const [posts, setPosts] = useState<BotPosts[]>([]);
   const [generating, setGenerating] = useState<boolean>(false);
 
@@ -17,10 +27,11 @@ function BotDashboard() {
     try {
       const profile = await generateNewProfile();
       const newPost = await generatePost(profile);
-      setPosts((prevPosts) => [
-        { username: profile.username, content: newPost },
-        ...prevPosts,
-      ]);
+      setPosts((prevPosts) => {
+        const newPost = { username: profile.username, content: newPost, profile };
+        setProfileVisible((prevVisible) => [false, ...prevVisible]);
+        return [newPost, ...prevPosts];
+      });
     } catch (error) {
       console.error("Error generating post:", error);
     } finally {
@@ -50,7 +61,28 @@ function BotDashboard() {
             borderRadius="md"
             w={"md"}
           >
-            <Text fontSize="lg" mb={2} textAlign={"left"}>
+            <Button
+              size="sm"
+              onClick={() => {
+                setProfileVisible((prevVisible) =>
+                  prevVisible.map((visible, i) => (i === index ? !visible : visible))
+                );
+              }}
+              mb={2}
+            >
+              {profileVisible[index] ? "Hide Profile" : "Show Profile"}
+            </Button>
+            <Collapse in={profileVisible[index]} animateOpacity>
+              <Box mt={2} textAlign="left">
+                <Text fontSize="sm" color="gray.600">
+                  <strong>Character Traits:</strong> {post.profile.characterTraits.join(", ")}
+                </Text>
+                <Text fontSize="sm" color="gray.600">
+                  <strong>Interests:</strong> {post.profile.interests.join(", ")}
+                </Text>
+              </Box>
+            </Collapse>
+            <Text fontSize="lg" mt={2} textAlign={"left"}>
               {post.content}
             </Text>
             <Box
