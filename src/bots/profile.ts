@@ -42,6 +42,7 @@ You are helping generate profiles for a social media bot. Respond in JSON with t
 - chracterTraits: Traits for the character. Simple list of strings
 - interests: Specific things the person is interested in. Simple list of strings.
 - postFrequency: How frequently they will post. Average hours between posts as a number.
+- username: A username for the bot
 `;
 
   return await generateJsonResponse<BotProfile>(prompt);

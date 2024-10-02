@@ -1,20 +1,26 @@
 import { Box, Heading, Text, VStack, Button } from "@chakra-ui/react";
 import { useState } from "react";
 import { generatePost } from "./bots/bot";
-import { createProfile } from "./bots/profile";
+import { generateNewProfile } from "./bots/profile";
+
+interface BotPosts {
+  content: string;
+  username: string;
+}
 
 function BotDashboard() {
-  const [posts, setPosts] = useState<string[]>([]);
-  const [profile, setProfile] = useState<BotProfile | null>(null);
+  const [posts, setPosts] = useState<BotPosts[]>([]);
   const [generating, setGenerating] = useState<boolean>(false);
 
   const handleGeneratePost = async () => {
     setGenerating(true);
     try {
-      const profile = await createProfile();
-      setProfile(profile);
+      const profile = await generateNewProfile();
       const newPost = await generatePost(profile);
-      setPosts((prevPosts) => [newPost, ...prevPosts]);
+      setPosts((prevPosts) => [
+        { username: profile.username, content: newPost },
+        ...prevPosts,
+      ]);
     } catch (error) {
       console.error("Error generating post:", error);
     } finally {
@@ -26,12 +32,6 @@ function BotDashboard() {
     <Box textAlign="center" p={5}>
       <Heading>Bot Dashboard</Heading>
       <Text>Generate posts for your bot!</Text>
-      {profile && (
-        <Text fontSize="lg" mb={3}>
-          Username: {profile.username}
-        </Text>
-      )}
-      
       <Button
         onClick={handleGeneratePost}
         colorScheme="teal"
@@ -51,8 +51,17 @@ function BotDashboard() {
             w={"md"}
           >
             <Text fontSize="lg" mb={2} textAlign={"left"}>
-              {post}
+              {post.content}
             </Text>
+            <Box
+              display="flex"
+              justifyContent="space-between"
+              fontSize="xs"
+              color="gray.400"
+            >
+              <Text>{post.username}</Text>
+              {/* <Text>{new Date(post.created_at).toLocaleString()}</Text> */}
+            </Box>
           </Box>
         ))}
       </VStack>
