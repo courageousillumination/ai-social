@@ -6,6 +6,7 @@ import Login from "./login";
 import Dashboard from "./dashboard";
 import Signup from "./signup";
 import Logout from "./logout";
+import BotDashboard from "./botDashboard";
 
 function App() {
   return (
@@ -22,6 +23,14 @@ function App() {
           />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route
+            path="/bot-dashboard"
+            element={
+              <RequireAuth>
+                <BotDashboard />
+              </RequireAuth>
+            }
+          />
           <Route
             path="/logout"
             element={
