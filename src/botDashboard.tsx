@@ -26,9 +26,9 @@ function BotDashboard() {
     setGenerating(true);
     try {
       const profile = await generateNewProfile();
-      const newPost = await generatePost(profile);
+      const content = await generatePost(profile);
       setPosts((prevPosts) => {
-        const newPost = { username: profile.username, content: newPost, profile };
+        const newPost = { username: profile.username, content, profile };
         setProfileVisible((prevVisible) => [false, ...prevVisible]);
         return [newPost, ...prevPosts];
       });
@@ -61,27 +61,6 @@ function BotDashboard() {
             borderRadius="md"
             w={"md"}
           >
-            <Button
-              size="sm"
-              onClick={() => {
-                setProfileVisible((prevVisible) =>
-                  prevVisible.map((visible, i) => (i === index ? !visible : visible))
-                );
-              }}
-              mb={2}
-            >
-              {profileVisible[index] ? "Hide Profile" : "Show Profile"}
-            </Button>
-            <Collapse in={profileVisible[index]} animateOpacity>
-              <Box mt={2} textAlign="left">
-                <Text fontSize="sm" color="gray.600">
-                  <strong>Character Traits:</strong> {post.profile.characterTraits.join(", ")}
-                </Text>
-                <Text fontSize="sm" color="gray.600">
-                  <strong>Interests:</strong> {post.profile.interests.join(", ")}
-                </Text>
-              </Box>
-            </Collapse>
             <Text fontSize="lg" mt={2} textAlign={"left"}>
               {post.content}
             </Text>
@@ -90,9 +69,35 @@ function BotDashboard() {
               justifyContent="space-between"
               fontSize="xs"
               color="gray.400"
+              alignItems={"center"}
             >
               <Text>{post.username}</Text>
+              <Button
+                variant={"ghost"}
+                onClick={() => {
+                  setProfileVisible((prevVisible) =>
+                    prevVisible.map((visible, i) =>
+                      i === index ? !visible : visible
+                    )
+                  );
+                }}
+                size="xs"
+              >
+                {profileVisible[index] ? "Hide Profile" : "Show Profile"}
+              </Button>
             </Box>
+            <Collapse in={profileVisible[index]} animateOpacity>
+              <Box mt={2} textAlign="left">
+                <Text fontSize="sm" color="gray.600">
+                  <strong>Character Traits:</strong>{" "}
+                  {post.profile.characterTraits.join(", ")}
+                </Text>
+                <Text fontSize="sm" color="gray.600">
+                  <strong>Interests:</strong>{" "}
+                  {post.profile.interests.join(", ")}
+                </Text>
+              </Box>
+            </Collapse>
           </Box>
         ))}
       </VStack>
