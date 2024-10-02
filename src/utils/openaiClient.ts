@@ -10,7 +10,7 @@ export const generateJsonResponse = async <T extends Record<string, any>>(
     modelName: "gpt-4o-mini",
     temperature: 1,
     apiKey: import.meta.env.VITE_OPENAI_API_KEY,
-    modelKwargs: { response_format: "json_object" },
+    modelKwargs: { response_format: { type: "json_object" } },
   });
 
   const parser = new JsonOutputParser<T>();

@@ -18,8 +18,8 @@ const BASE_PROFILES = [
     ],
     interests: ["photography", "traveling", "cooking", "technology", "gaming"],
     postFrequency: 4,
+    username: "bot_user_123",
   },
-  username: "bot_user_123",
 ];
 
 /**
