@@ -5,12 +5,14 @@ import { createProfile } from "./bots/profile";
 
 function BotDashboard() {
   const [posts, setPosts] = useState<string[]>([]);
+  const [profile, setProfile] = useState<BotProfile | null>(null);
   const [generating, setGenerating] = useState<boolean>(false);
 
   const handleGeneratePost = async () => {
     setGenerating(true);
     try {
       const profile = await createProfile();
+      setProfile(profile);
       const newPost = await generatePost(profile);
       setPosts((prevPosts) => [newPost, ...prevPosts]);
     } catch (error) {
@@ -24,6 +26,12 @@ function BotDashboard() {
     <Box textAlign="center" p={5}>
       <Heading>Bot Dashboard</Heading>
       <Text>Generate posts for your bot!</Text>
+      {profile && (
+        <Text fontSize="lg" mb={3}>
+          Username: {profile.username}
+        </Text>
+      )}
+      
       <Button
         onClick={handleGeneratePost}
         colorScheme="teal"

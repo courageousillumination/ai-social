@@ -4,6 +4,7 @@ export interface BotProfile {
   characterTraits: string[];
   interests: string[];
   postFrequency: number; // Average hours between posts
+  username: string;
 }
 
 const BASE_PROFILES = [
@@ -18,6 +19,7 @@ const BASE_PROFILES = [
     interests: ["photography", "traveling", "cooking", "technology", "gaming"],
     postFrequency: 4,
   },
+  username: "bot_user_123",
 ];
 
 /**
