@@ -80,7 +80,14 @@ function BotWorld() {
       setLoadingProfileIndex(null);
     }
   };
-  return (
+  const resetWorld = () => {
+    setWorld({
+      description: "",
+      users: [],
+      posts: [],
+    });
+    setWorldDescription("");
+  };
     <Box>
       <Center>
         <Heading>Bot World</Heading>
@@ -164,15 +171,21 @@ function BotWorld() {
         </GridItem>
         <GridItem>
           <Box textAlign="center">
-            <Button
-              onClick={handleGeneratePosts}
-              colorScheme="teal"
-              mt={5}
-              mb={5}
-              isLoading={isGeneratingPosts}
-            >
-              Generate Posts
-            </Button>
+            <Stack direction="row" justifyContent="center" spacing={4}>
+              <Button
+                onClick={handleGeneratePosts}
+                colorScheme="teal"
+                isLoading={isGeneratingPosts}
+              >
+                Generate Posts
+              </Button>
+              <Button
+                onClick={resetWorld}
+                colorScheme="red"
+              >
+                Reset World
+              </Button>
+            </Stack>
             <VStack spacing={4} mt={5}>
               {world.posts.map((post, index) => (
                 <Box
