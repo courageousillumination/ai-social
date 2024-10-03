@@ -1,4 +1,5 @@
 import { generateJsonResponse } from "../utils/openaiClient";
+import { World } from "../worlds/world";
 
 export interface BotProfile {
   characterTraits: string[];
@@ -36,8 +37,17 @@ export const createProfile = async (): Promise<BotProfile> => {
  * TODO: Figure out how to integrate this with the rest of the system, but right now
  * don't want to waste a bunch of credits.
  */
-export const generateNewProfile = async () => {
+export const generateNewProfile = async (world?: World) => {
+  let worldDescription = "";
+  if (world) {
+    worldDescription = `
+The world you are generating a profile for has the following description: ${world.description}
+It includes users with the following profiles: ${world.users.map(user => user.username).join(", ")}
+`;
+  }
+
   const prompt = `
+${worldDescription}
 You are helping generate profiles for a social media bot. 
 Be creative with your responses. We want to cover the whole range of people who exist on social
 media.
