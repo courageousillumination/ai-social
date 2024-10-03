@@ -8,6 +8,7 @@ import {
   Button,
   Input,
   Collapse,
+  Stack,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { generatePost } from "./bots/bot";
@@ -70,7 +71,10 @@ function BotWorld() {
             onChange={(e) => setWorldDescription(e.target.value)}
             mb={3}
           />
-          <Box>
+          <Text fontSize="lg" mt={2} textAlign={"left"}>
+            <strong>World Description:</strong> {world.description}
+          </Text>
+          <Stack direction={"row"}>
             <Button
               onClick={() =>
                 setWorld((prevWorld) => ({
@@ -98,32 +102,32 @@ function BotWorld() {
             >
               {profileVisible ? "Hide Users" : "Show Users"}
             </Button>
-            <Collapse in={profileVisible} animateOpacity>
-              <VStack spacing={4} mt={5}>
-                {world.users.map((user, index) => (
-                  <Box
-                    key={index}
-                    p={3}
-                    shadow="md"
-                    borderWidth="1px"
-                    borderRadius="md"
-                    w={"md"}
-                  >
-                    <Text fontSize="sm" color="gray.600">
-                      <strong>Username:</strong> {user.username}
-                    </Text>
-                    <Text fontSize="sm" color="gray.600">
-                      <strong>Character Traits:</strong>{" "}
-                      {user.characterTraits.join(", ")}
-                    </Text>
-                    <Text fontSize="sm" color="gray.600">
-                      <strong>Interests:</strong> {user.interests.join(", ")}
-                    </Text>
-                  </Box>
-                ))}
-              </VStack>
-            </Collapse>
-          </Box>
+          </Stack>
+          <Collapse in={profileVisible} animateOpacity>
+            <VStack spacing={4} mt={5}>
+              {world.users.map((user, index) => (
+                <Box
+                  key={index}
+                  p={3}
+                  shadow="md"
+                  borderWidth="1px"
+                  borderRadius="md"
+                  w={"md"}
+                >
+                  <Text fontSize="sm" color="gray.600">
+                    <strong>Username:</strong> {user.username}
+                  </Text>
+                  <Text fontSize="sm" color="gray.600">
+                    <strong>Character Traits:</strong>{" "}
+                    {user.characterTraits.join(", ")}
+                  </Text>
+                  <Text fontSize="sm" color="gray.600">
+                    <strong>Interests:</strong> {user.interests.join(", ")}
+                  </Text>
+                </Box>
+              ))}
+            </VStack>
+          </Collapse>
         </Box>
       </GridItem>
       <GridItem>
@@ -138,9 +142,6 @@ function BotWorld() {
             Generate Posts
           </Button>
           <VStack spacing={4} mt={5}>
-            <Text fontSize="lg" mt={2} textAlign={"left"}>
-              <strong>World Description:</strong> {world.description}
-            </Text>
             {world.posts.map((post, index) => (
               <Box
                 key={index}
