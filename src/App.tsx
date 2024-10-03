@@ -7,6 +7,7 @@ import Dashboard from "./dashboard";
 import Signup from "./signup";
 import Logout from "./logout";
 import BotDashboard from "./botDashboard";
+import BotWorld from "./BotWorld";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/bot-world" element={<BotWorld />} />
           <Route path="/bot-dashboard" element={<BotDashboard />} />
           <Route
             path="/logout"

@@ -1,4 +1,12 @@
-import { Box, Heading, Text, VStack, Button, Input, Collapse } from "@chakra-ui/react";
+import {
+  Box,
+  Heading,
+  Text,
+  VStack,
+  Button,
+  Input,
+  Collapse,
+} from "@chakra-ui/react";
 import { useState } from "react";
 import { generatePost } from "./bots/bot";
 import { generateNewProfile } from "./bots/profile";
@@ -30,7 +38,10 @@ function BotWorld() {
 
     setWorld((prevWorld) => ({
       ...prevWorld,
-      posts: [...prevWorld.posts, { content, username: profile.username, profile }],
+      posts: [
+        ...prevWorld.posts,
+        { content, username: profile.username, profile },
+      ],
     }));
   };
 
@@ -44,47 +55,55 @@ function BotWorld() {
         onChange={(e) => setWorldDescription(e.target.value)}
         mb={3}
       />
-      <Button
-        onClick={() => setWorld((prevWorld) => ({ ...prevWorld, description: worldDescription }))}
-        colorScheme="teal"
-        mb={5}
-      >
-        Set World Description
-      </Button>
-      <Button onClick={handleAddProfile} colorScheme="teal" mb={5}>
-        Add Bot Profile
-      </Button>
-      <Button
-        onClick={() => setProfileVisible(!profileVisible)}
-        colorScheme="teal"
-        mb={5}
-      >
-        {profileVisible ? "Hide Users" : "Show Users"}
-      </Button>
-      <Collapse in={profileVisible} animateOpacity>
-        <VStack spacing={4} mt={5}>
-          {world.users.map((user, index) => (
-            <Box
-              key={index}
-              p={3}
-              shadow="md"
-              borderWidth="1px"
-              borderRadius="md"
-              w={"md"}
-            >
-              <Text fontSize="sm" color="gray.600">
-                <strong>Username:</strong> {user.username}
-              </Text>
-              <Text fontSize="sm" color="gray.600">
-                <strong>Character Traits:</strong> {user.characterTraits.join(", ")}
-              </Text>
-              <Text fontSize="sm" color="gray.600">
-                <strong>Interests:</strong> {user.interests.join(", ")}
-              </Text>
-            </Box>
-          ))}
-        </VStack>
-      </Collapse>
+      <Box>
+        <Button
+          onClick={() =>
+            setWorld((prevWorld) => ({
+              ...prevWorld,
+              description: worldDescription,
+            }))
+          }
+          colorScheme="teal"
+          mb={5}
+        >
+          Set World Description
+        </Button>
+        <Button onClick={handleAddProfile} colorScheme="teal" mb={5}>
+          Add Bot Profile
+        </Button>
+        <Button
+          onClick={() => setProfileVisible(!profileVisible)}
+          colorScheme="teal"
+          mb={5}
+        >
+          {profileVisible ? "Hide Users" : "Show Users"}
+        </Button>
+        <Collapse in={profileVisible} animateOpacity>
+          <VStack spacing={4} mt={5}>
+            {world.users.map((user, index) => (
+              <Box
+                key={index}
+                p={3}
+                shadow="md"
+                borderWidth="1px"
+                borderRadius="md"
+                w={"md"}
+              >
+                <Text fontSize="sm" color="gray.600">
+                  <strong>Username:</strong> {user.username}
+                </Text>
+                <Text fontSize="sm" color="gray.600">
+                  <strong>Character Traits:</strong>{" "}
+                  {user.characterTraits.join(", ")}
+                </Text>
+                <Text fontSize="sm" color="gray.600">
+                  <strong>Interests:</strong> {user.interests.join(", ")}
+                </Text>
+              </Box>
+            ))}
+          </VStack>
+        </Collapse>
+      </Box>
       <Button onClick={handleGeneratePosts} colorScheme="teal" mt={5} mb={5}>
         Generate Posts
       </Button>
@@ -106,13 +125,6 @@ function BotWorld() {
             </Text>
             <Text fontSize="sm" color="gray.600">
               <strong>Username:</strong> {post.username}
-            </Text>
-            <Text fontSize="sm" color="gray.600">
-              <strong>Character Traits:</strong>{" "}
-              {post.profile.characterTraits.join(", ")}
-            </Text>
-            <Text fontSize="sm" color="gray.600">
-              <strong>Interests:</strong> {post.profile.interests.join(", ")}
             </Text>
           </Box>
         ))}
