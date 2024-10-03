@@ -88,6 +88,7 @@ function BotWorld() {
     });
     setWorldDescription("");
   };
+  return (
     <Box>
       <Center>
         <Heading>Bot World</Heading>
@@ -179,10 +180,7 @@ function BotWorld() {
               >
                 Generate Posts
               </Button>
-              <Button
-                onClick={resetWorld}
-                colorScheme="red"
-              >
+              <Button onClick={resetWorld} colorScheme="red">
                 Reset World
               </Button>
             </Stack>
