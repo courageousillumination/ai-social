@@ -22,7 +22,7 @@ function BotWorld() {
   const [worldDescription, setWorldDescription] = useState<string>("");
 
   const handleAddProfile = async () => {
-    const profile = await generateNewProfile();
+    const profile = await generateNewProfile(world);
     setWorld((prevWorld) => ({
       ...prevWorld,
       users: [...prevWorld.users, profile],

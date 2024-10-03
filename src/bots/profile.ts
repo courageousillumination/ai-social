@@ -42,13 +42,12 @@ export const generateNewProfile = async (world?: World) => {
   if (world) {
     worldDescription = `
 The world you are generating a profile for has the following description: ${world.description}
-It includes users with the following profiles: ${world.users.map(user => user.username).join(", ")}
 `;
   }
 
   const prompt = `
-${worldDescription}
 You are helping generate profiles for a social media bot. 
+${worldDescription}
 Be creative with your responses. We want to cover the whole range of people who exist on social
 media.
 Respond in JSON with the following:
