@@ -19,30 +19,41 @@ function BotWorld() {
     posts: [],
   });
   const [profileVisible, setProfileVisible] = useState<boolean>(false);
+  const [isAddingProfile, setIsAddingProfile] = useState<boolean>(false);
+  const [isGeneratingPosts, setIsGeneratingPosts] = useState<boolean>(false);
   const [worldDescription, setWorldDescription] = useState<string>("");
 
   const handleAddProfile = async () => {
-    const profile = await generateNewProfile(world);
-    setWorld((prevWorld) => ({
-      ...prevWorld,
-      users: [...prevWorld.users, profile],
-    }));
+    setIsAddingProfile(true);
+    try {
+      const profile = await generateNewProfile(world);
+      setWorld((prevWorld) => ({
+        ...prevWorld,
+        users: [...prevWorld.users, profile],
+      }));
+    } finally {
+      setIsAddingProfile(false);
+    }
   };
 
   const handleGeneratePosts = async () => {
     if (world.users.length === 0) return;
+    setIsGeneratingPosts(true);
+    try {
+      const randomIndex = Math.floor(Math.random() * world.users.length);
+      const profile = world.users[randomIndex];
+      const content = await generatePost(profile);
 
-    const randomIndex = Math.floor(Math.random() * world.users.length);
-    const profile = world.users[randomIndex];
-    const content = await generatePost(profile);
-
-    setWorld((prevWorld) => ({
-      ...prevWorld,
-      posts: [
-        ...prevWorld.posts,
-        { content, username: profile.username, profile },
-      ],
-    }));
+      setWorld((prevWorld) => ({
+        ...prevWorld,
+        posts: [
+          ...prevWorld.posts,
+          { content, username: profile.username, profile },
+        ],
+      }));
+    } finally {
+      setIsGeneratingPosts(false);
+    }
   };
 
   return (
@@ -68,7 +79,12 @@ function BotWorld() {
         >
           Set World Description
         </Button>
-        <Button onClick={handleAddProfile} colorScheme="teal" mb={5}>
+        <Button
+          onClick={handleAddProfile}
+          colorScheme="teal"
+          mb={5}
+          isLoading={isAddingProfile}
+        >
           Add Bot Profile
         </Button>
         <Button
@@ -104,7 +120,13 @@ function BotWorld() {
           </VStack>
         </Collapse>
       </Box>
-      <Button onClick={handleGeneratePosts} colorScheme="teal" mt={5} mb={5}>
+      <Button
+        onClick={handleGeneratePosts}
+        colorScheme="teal"
+        mt={5}
+        mb={5}
+        isLoading={isGeneratingPosts}
+      >
         Generate Posts
       </Button>
       <VStack spacing={4} mt={5}>
