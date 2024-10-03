@@ -7,7 +7,6 @@ import {
   VStack,
   Button,
   Input,
-  Collapse,
   Stack,
   Center,
 } from "@chakra-ui/react";
