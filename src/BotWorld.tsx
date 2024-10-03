@@ -25,6 +25,7 @@ function BotWorld() {
   const [isAddingProfile, setIsAddingProfile] = useState<boolean>(false);
   const [isGeneratingPosts, setIsGeneratingPosts] = useState<boolean>(false);
   const [worldDescription, setWorldDescription] = useState<string>("");
+  const [loadingProfileIndex, setLoadingProfileIndex] = useState<number | null>(null);
 
   const handleAddProfile = async () => {
     setIsAddingProfile(true);
@@ -59,7 +60,23 @@ function BotWorld() {
     }
   };
 
-  return (
+  const handleGeneratePostForProfile = async (profileIndex: number) => {
+    setLoadingProfileIndex(profileIndex);
+    try {
+      const profile = world.users[profileIndex];
+      const content = await generatePost(profile);
+
+      setWorld((prevWorld) => ({
+        ...prevWorld,
+        posts: [
+          ...prevWorld.posts,
+          { content, username: profile.username, profile },
+        ],
+      }));
+    } finally {
+      setLoadingProfileIndex(null);
+    }
+  };
     <Grid templateColumns="repeat(2, 1fr)" gap={6} p={5}>
       <GridItem>
         <Box textAlign="center">
@@ -124,6 +141,15 @@ function BotWorld() {
                   <Text fontSize="sm" color="gray.600">
                     <strong>Interests:</strong> {user.interests.join(", ")}
                   </Text>
+                  <Button
+                    onClick={() => handleGeneratePostForProfile(index)}
+                    colorScheme="teal"
+                    size="sm"
+                    mt={2}
+                    isLoading={loadingProfileIndex === index}
+                  >
+                    Generate Post
+                  </Button>
                 </Box>
               ))}
             </VStack>
