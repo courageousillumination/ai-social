@@ -1,4 +1,4 @@
-import { Box, Heading, Text, VStack, Button, Input } from "@chakra-ui/react";
+import { Box, Heading, Text, VStack, Button, Input, Collapse } from "@chakra-ui/react";
 import { useState } from "react";
 import { generatePost } from "./bots/bot";
 import { generateNewProfile } from "./bots/profile";
@@ -10,6 +10,7 @@ function BotWorld() {
     users: [],
     posts: [],
   });
+  const [profileVisible, setProfileVisible] = useState<boolean>(false);
   const [worldDescription, setWorldDescription] = useState<string>("");
 
   const handleAddProfile = async () => {
@@ -21,15 +22,15 @@ function BotWorld() {
   };
 
   const handleGeneratePosts = async () => {
-    const newPosts = await Promise.all(
-      world.users.map(async (profile) => {
-        const content = await generatePost(profile);
-        return { content, username: profile.username, profile };
-      })
-    );
+    if (world.users.length === 0) return;
+
+    const randomIndex = Math.floor(Math.random() * world.users.length);
+    const profile = world.users[randomIndex];
+    const content = await generatePost(profile);
+
     setWorld((prevWorld) => ({
       ...prevWorld,
-      posts: [...prevWorld.posts, ...newPosts],
+      posts: [...prevWorld.posts, { content, username: profile.username, profile }],
     }));
   };
 
@@ -53,7 +54,38 @@ function BotWorld() {
       <Button onClick={handleAddProfile} colorScheme="teal" mb={5}>
         Add Bot Profile
       </Button>
-      <Button onClick={handleGeneratePosts} colorScheme="teal" mb={5}>
+      <Button
+        onClick={() => setProfileVisible(!profileVisible)}
+        colorScheme="teal"
+        mb={5}
+      >
+        {profileVisible ? "Hide Users" : "Show Users"}
+      </Button>
+      <Collapse in={profileVisible} animateOpacity>
+        <VStack spacing={4} mt={5}>
+          {world.users.map((user, index) => (
+            <Box
+              key={index}
+              p={3}
+              shadow="md"
+              borderWidth="1px"
+              borderRadius="md"
+              w={"md"}
+            >
+              <Text fontSize="sm" color="gray.600">
+                <strong>Username:</strong> {user.username}
+              </Text>
+              <Text fontSize="sm" color="gray.600">
+                <strong>Character Traits:</strong> {user.characterTraits.join(", ")}
+              </Text>
+              <Text fontSize="sm" color="gray.600">
+                <strong>Interests:</strong> {user.interests.join(", ")}
+              </Text>
+            </Box>
+          ))}
+        </VStack>
+      </Collapse>
+      <Button onClick={handleGeneratePosts} colorScheme="teal" mt={5} mb={5}>
         Generate Posts
       </Button>
       <VStack spacing={4} mt={5}>
